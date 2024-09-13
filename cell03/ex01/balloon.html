@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="redballoon" onclick="balloon()"></div>
+</body>
+<script>
+    const redBalloon = document.getElementById("redballoon");
+    const rotation = [ 'red', 'green', 'blue' ];
+    let idx = 0;
+
+    const decreaseBy = 5;
+    const increaseBy = 10;
+
+    function updateBalloon(size, color) {
+        redBalloon.style.width = size;
+        redBalloon.style.height = size;
+        redBalloon.style.backgroundColor = color;
+    }
+
+
+    redBalloon.addEventListener('mouseover', () => {
+        if (redBalloon.offsetWidth - decreaseBy >= 200) {
+            idx -= 1;
+            if (idx < 0) idx = rotation.length - 1;
+
+            newColor = rotation[idx];
+
+            newOffSetSize = redBalloon.offsetWidth - decreaseBy;
+            newSize = `${newOffSetSize}px`;
+
+            updateBalloon(newSize, newColor);
+        }
+    });
+
+    function balloon() {
+        console.log(redBalloon.offsetWidth)
+        if (redBalloon.offsetWidth + increaseBy > 420) {
+            updateBalloon('200px', rotation[idx]);
+            return;
+        }
+
+        idx = (idx + 1)%rotation.length;
+        newColor = rotation[idx];
+
+        newOffSetSize = redBalloon.offsetWidth + increaseBy;
+        newSize = `${newOffSetSize}px`;
+
+        updateBalloon(newSize, newColor);
+    }
+
+</script>
+</html>
